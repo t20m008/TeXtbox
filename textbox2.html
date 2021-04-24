@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+        s
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css"
+        type="text/css" media="all" />
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="js/garlic.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css?ver=1.0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Economica:700" rel="stylesheet">
+
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.js"></script>
+    <script src="https://codemirror.net/mode/stex/stex.js"></script>
+    <link rel="stylesheet" href="https://codemirror.net/theme/zenburn.css">
+
+    <script src="https://codemirror.net/addon/edit/closebrackets.js"></script>
+    <title>TeXtbox</title>
+
+    <link rel="stylesheet" href="textbox2.css?ver=2">
+    <script src="textbox2.js?ver=1"></script>
+    <script src="./mathjax/es5/tex-mml-chtml.js"></script>
+    <script src="tex2.js?ver=1"></script>
+
+</head>
+
+<body>
+
+    <!-- navber -->
+    <div class="dropdown">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <h1>TeXtbox</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                MENU
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">A</a></li>
+                                <li><a class="dropdown-item" href="#">B</a></li>
+                                <li><a class="dropdown-item" href="#">C</a></li>
+                            </ul>
+                        </li>
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    LINK
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark"
+                                    aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    $\int_{0}^{\pi} \sin(x) dx$
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark"
+                                    aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row row-cols-1">
+                <div class="col-md-6" id="column1">
+                    <form data-persist="garlic" method="post">
+                        <textarea class="m-form-textarea dn0" id="input" name="text" data-persist="garlic"></textarea>
+                        <textarea class="m-form-textarea dn1" id="input2" name="text"></textarea>
+                    </form>
+
+                    <script>
+                        editor = CodeMirror.fromTextArea(document.getElementById("input"), {
+                            mode: "stex",
+                            theme: "zenburn",
+                            lineNumbers: true, // 行番号を表示する
+                            lineWrapping: false, // 行を折り返す
+                            autoCloseBrackets: true,
+                        });
+                        editor.save()
+                    </script>
+                    <style>
+                        .CodeMirror {
+                            font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+                            font-size: 15px;
+                        }
+                    </style>
+                </div>
+                <div class="col-md-6" id="column2">
+                    <div class="output kakomi-maru1">
+                        <div class="" id="output2">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <!-- button -->
+        <div class="container-fluid">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-3" role="group" aria-label="btngroup">
+                    <button type="button" class="btn btn-danger" onclick="Push('clear')"><i
+                            class="fas fa-trash-alt fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary" onclick="cursol_left()"><i
+                            class="fas fa-arrow-left fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary" onclick="Push('space')">␣</button>
+                    <button type="button" class="btn btn-secondary" onclick="cursol_right()"><i
+                            class="fas fa-arrow-right fa-fw"></i></button>
+                    <button type="button" class="btn btn-danger" onclick="Push('backspace')"><i
+                            class="fas fa-backspace fa-fw"></i></button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary cpb copy_clipboard" data-bs-toggle="modal"
+                        data-bs-target="#Modal"><i class="fas fa-copy fa-fw"></i></button></div>
+                <!-- Modal -->
+                <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="copy" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                クリップボードにコピーしました。
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cls" data-bs-dismiss="modal">閉じる</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button2 -->
+        <div class="container-fluid mt-2">
+
+            <a class="btn btn-success clps" data-bs-toggle="collapse" href="#collapse0" role="button"
+                aria-expanded="false">記号</a>
+            <button class="btn btn-success clps" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
+                aria-expanded="false">関数</button>
+            <button class="btn btn-success clps" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
+                aria-expanded="false">演算</button>
+            <button class="btn btn-success clps" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
+                aria-expanded="false">行列</button>
+            <button class="btn btn-success clps" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
+                aria-expanded="false">！</button>
+            <button class="btn btn-success clps" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
+                aria-expanded="false">？</button>
+            <button class="btn btn-info clps" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
+                aria-expanded="false">＠</button>
+
+
+
+
+            <!-- collapse0 記号 -->
+            <div class="col">
+                <div class="collapse multi-collapse" id="collapse0">
+                    <div class="card card-body">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group mr-2" role="group">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" class="btn  btn-secondary"
+                                            onclick="Push('equal')">$=$</button>
+                                        <button type="button" class="btn  btn-secondary"
+                                            onclick="Push('plus')">$+$</button>
+                                        <button type="button" class="btn  btn-secondary"
+                                            onclick="Push('minus')">$-$</button>
+                                        <button type="button" class="btn  btn-secondary"
+                                            onclick="Push('times')">$\times$</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('di')">$ \div
+                                            $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('pm')">$ \pm
+                                            $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('mp')">$ \mp
+                                            $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('cdot')">$ \cdot
+                                            $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('ra')">$
+                                            \Rightarrow $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('la')">$
+                                            \Leftarrow $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push('lra')">$
+                                            \Leftrightarrow
+                                            $</button>
+                                        <button type="button" class="btn  btn-secondary" onclick="Push()">$ \mp
+                                            $</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- collapse1 関数 -->
+            <div class="col">
+                <div class="collapse multi-collapse" id="collapse1">
+                    <div class="card card-body">
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group" role="group" aria-label="First group">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-secondary" onclick="Push('sqrt')">$\sqrt
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('nsqrt')">$\sqrt[n]{x}$</button>
+
+                                        <h4 class="card-title">三角関数</h4>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('sin')">$\sin
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('cos')">$\cos
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('tan')">$\tan
+                                            x$</button>
+
+                                        <h4 class="card-title">逆三角関数</h4>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('arcsin')">$\arcsin
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('arccos')">$\arccos
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('arctan')">$\arctan
+                                            x$</button>
+
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('asin')">$\sin^{-1} x$</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('acos')">$\cos^{-1} x$</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('atan')">$\tan^{-1} x$</button>
+
+                                        <h4 class="card-title">指数対数関数</h4>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('exp0')">$\exp(x)$</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            onclick="Push('exp1')">$e^x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('log0')">$\log
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('log1')">$\log_a
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('log2')">$\ln
+                                            x$</button>
+
+                                        <h4 class="card-title">双曲線関数</h4>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('sinh0')">$\sinh
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('cosh0')">$\cosh
+                                            x$</button>
+                                        <button type="button" class="btn btn-secondary" onclick="Push('tanh0')">$\tanh
+                                            x$</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- collapse2 演算 -->
+                <div class="col">
+                    <div class="collapse multi-collapse" id="collapse2">
+                        <div class="card card-body">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group" role="group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4 class="card-title">総和</h4>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('sum0')">$\displaystyle{\sum_{i=0}^{n}}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('sum1')">$\displaystyle{\sum_{i,j}}$</button>
+
+                                            <h4 class="card-title">極限</h4>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('limit')">$\displaystyle{\lim_{x
+                                                \to
+                                                \infty}}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('limsup0')">$\displaystyle{\limsup_{n
+                                                \to \infty}}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('limsup1')">$\displaystyle{\varlimsup_{n \to
+                                                \infty}}$</button>
+
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('liminf0')">$\displaystyle{\liminf_{n
+                                                \to \infty}}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('liminf1')">$\displaystyle{\varliminf_{n \to
+                                                \infty}}$</button>
+
+                                            <h4 class="card-title">微分</h4>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('diff0')">$f'(x)$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('diff1')">$f^{(n)}(x)$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('diff2')">$\frac{dy}{dx}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('diff3')">$\frac{df(x)}{dx}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('pdiff0')">$f_{x}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('pdiff1')">$f_{xy}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('pdiff2')">$\frac{\partial
+                                                f}{\partial y}$</button>
+
+
+                                            <h4 class="card-title">積分</h4>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('int')">$\displaystyle{\int}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('intd')">$\displaystyle{\int_{a}^{b}}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('iint')">$\displaystyle{\iint}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('')">$\displaystyle{}$</button>
+
+                                            <h4 class="card-title">---</h4>
+
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('')">$\displaystyle{}$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('')">$　$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('')">$　$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('')">$　$</button>
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('')">$　$</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 行列 -->
+                <div class="col">
+                    <div class="collapse multi-collapse" id="collapse3">
+                        <div class="card card-body">
+                            <div class="btn-toolbar mt-1" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group" aria-label="First group">
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4 class="card-title">行列</h4>
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('matrix0')">$\begin{matrix} a
+                                                &
+                                                b
+                                                \\
+                                                c
+                                                & d \\ \end{matrix}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('matrix1')">
+                                                $\begin{pmatrix}
+                                                a & b \\
+                                                c & d
+                                                \end{pmatrix}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('matrix2')">
+                                                $\begin{bmatrix}
+                                                a & b \\
+                                                c & d
+                                                \end{bmatrix}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('matrix3')">
+                                                $\begin{Bmatrix}
+                                                a & b \\
+                                                c & d
+                                                \end{Bmatrix}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('matrix5')">
+                                                $
+                                                \left( \begin{array}{ccc}
+                                                a & b & c \\
+                                                d & e & f \\
+                                                g & h & i
+                                                \end{array} \right)
+                                                $
+                                            </button>
+
+                                            <h4 class="card-title">行列式</h4>
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('det0')">$\mathrm{det}
+                                                A$</button>
+
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('det1')">
+                                                $\begin{vmatrix}
+                                                a & b \\
+                                                c & d
+                                                \end{vmatrix}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('det2')">
+                                                $\begin{Vmatrix}
+                                                a & b \\
+                                                c & d
+                                                \end{Vmatrix}$
+                                            </button>
+
+                                            <hr>
+                                            <button type="button" class="btn  btn-secondary p-3 "
+                                                onclick="Push('matrix_g')">
+                                                $
+                                                A = a_{ij} = \left(
+                                                \begin{array}{cccc}
+                                                a_{11} & a_{12} & \ldots & a_{1n} \\
+                                                a_{21} & a_{22} & \ldots & a_{2n} \\
+                                                \vdots & \vdots & \ddots & \vdots \\
+                                                a_{m1} & a_{m2} & \ldots & a_{mn}
+                                                \end{array} \right)
+                                                $
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- collapse 4-->
+                <div class="col">
+                    <div class="collapse multi-collapse" id="collapse4">
+                        <div class="card card-body">
+                            <!-- 数字 -->
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group mr-2" role="group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="button" class="btn  btn-secondary" onclick="Push('formula0')">
+                                                $\begin{align} f(x) &= x^2+3x+2 \\ &= (x+1)(x+2) \end{align}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary" onclick="Push('formula1')">
+                                                $\displaystyle{\lim_{h \to 0} \frac{f(x+h)-f(x)}{h} \\}$
+                                            </button>
+
+                                            <button type="button" class="btn  btn-secondary" onclick="Push('formula2')">
+                                                $
+                                                f(x) = \left\{
+                                                \begin{array}{ll}
+                                                1 & (x \geq 0) \\
+                                                0 & (x \lt 0)
+                                                \end{array}
+                                                \right.
+                                                $
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- collapse sample -->
+                <div class="col">
+                    <div class="collapse multi-collapse" id="collapse4">
+                        <div class="card card-body">
+                            <!-- 数字 -->
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group mr-2" role="group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="button" class="btn  btn-secondary"
+                                                onclick="Push('equal')">$=$</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div>
+            <p>kiwi</p>
+        </div>
+    </footer>
+
+
+    <!-- MathJax -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.0/es5/tex-mml-chtml.js"></script> -->
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.0/es5/tex-mml-chtml.js -->
+    <!-- https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -->
+    <!-- <script src="tex-mml-chtml.js"></script> -->
+</body>
+
+</html>
