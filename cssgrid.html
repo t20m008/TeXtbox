@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cssgrid.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <div class="grid-container">
+            <div class="input">
+                <p>input</p>
+            </div>
+            <div class="output">
+                <p>output</p>
+            </div>
+        </div>
+            <div class="control">
+                <p>control</p>
+                <ul>
+                    <li>aa------</li>
+                    <li>bb---------------</li>
+                    <li>ccccccccccccccccccccccc</li>
+                </ul>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    {
+        const a = document.querySelector('.input');
+        const b = document.querySelector('.output');
+        let flag = false;
+        a.addEventListener('mousedown', e => {
+            flag = true;
+        })
+        window.addEventListener('mousemove', e => {
+            if (flag) {
+                b.style.width = `calc(100% - ${a.style.width})`;
+            }
+        })
+        window.addEventListener('mouseup', e => {
+            flag = false;
+        })
+    }
+</script>
+
+<script>
+    {
+        const c = document.querySelector('.grid-container');
+        const d = document.querySelector('.control');
+        let flag = false;
+        c.addEventListener('mousedown', e => {
+            flag = true;
+        })
+        window.addEventListener('mousemove', e => {
+            if (flag) {
+                d.style.height = `calc(100% - ${c.style.height})`;
+            }
+        })
+        window.addEventListener('mouseup', e => {
+            flag = false;
+        })
+    }
+</script>

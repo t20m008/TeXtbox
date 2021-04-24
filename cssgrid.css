@@ -1,0 +1,72 @@
+.output {
+    grid-area: output;
+    background-color: rgb(255, 172, 172);
+    min-height: 200px;
+    resize: horizontal;
+}
+
+.input {
+    grid-area: input;
+    background-color: rgb(145, 209, 209);
+    resize: horizontal;
+
+}
+
+.control {
+    height: 100%;
+    grid-area: control;
+    background-color: rgb(243, 255, 132);
+    resize: vertical;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "input input output output"
+        "control control control control"
+        ". . . .";
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .grid-container {
+    display: flex;
+    margin: 0 auto;
+    width: 100vw;
+    height: 50vh;
+    overflow: hidden;
+    resize : vertical;
+  }
+  
+  .input {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: rgb(146, 193, 255);
+    resize: horizontal;
+  }
+  
+  .output {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 185, 185);
+    resize: horizontal;  
+  }
+
+
+  .box {
+    display: block;
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
